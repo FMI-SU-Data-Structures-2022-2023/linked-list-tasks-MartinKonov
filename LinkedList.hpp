@@ -6,7 +6,7 @@
 template <class T>
 class LinkedList {
 private:
-    template <class T>
+    template <class G>
     struct Node {
         T key;
         Node<T>* next;
@@ -380,7 +380,7 @@ public:
 template <class T>
 class DoubleLinkedList {
 private:
-    template <class T>
+    template <class G>
     struct Node {
         T key;
         Node<T>* next;
