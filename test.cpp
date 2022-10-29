@@ -12,7 +12,7 @@ TEST_CASE("LinkedList adding elements") {
 
 	SECTION("adding element should increase the size") {
 		list.insertAtPos(1, 0);
-		REQUIRE(list.getSize() == 0);
+		REQUIRE(list.getSize() == 1);
 	}
 
 	SECTION("adding element should increase the size") {
@@ -42,12 +42,12 @@ TEST_CASE("LinkedList getting elements") {
 		REQUIRE_THROWS_AS(list.getElementAtPos(100), std::out_of_range);
 	}
 	SECTION("adding element should increase the size") {
-		CHECK(list.getElementAtPos(0) == 1);
+		CHECK(list.getElementAtPos(0) == 1000);
 		CHECK(list.getElementAtPos(1) == 15);
 		CHECK(list.getElementAtPos(2) == 16);
-		CHECK(list.getElementAtPos(3) == 10);
-		CHECK(list.getElementAtPos(4) == 100);
-		CHECK(list.getElementAtPos(5) == 1000);
+		CHECK(list.getElementAtPos(3) == 100);
+		CHECK(list.getElementAtPos(4) == 10);
+		CHECK(list.getElementAtPos(5) == 1);
 	}
 }
 
@@ -62,16 +62,12 @@ TEST_CASE("LinkedList removing elements") {
 	list.insertAtPos(16, 2);
 
 	SECTION("non exising position should throw out of rance") {
-		REQUIRE_THROWS_AS(list.getElementAtPos(100), std::out_of_range);
+		REQUIRE_THROWS_AS(list.removeAtPos(100), std::out_of_range);
 	}
 
-	SECTION("adding element should increase the size") {
-		CHECK(list.getElementAtPos(0) == 1);
-		CHECK(list.getElementAtPos(1) == 15);
-		CHECK(list.getElementAtPos(2) == 16);
-		CHECK(list.getElementAtPos(3) == 10);
-		CHECK(list.getElementAtPos(4) == 100);
-		CHECK(list.getElementAtPos(5) == 1000);
+	SECTION("removing element should decrease the size and move the position of the next elements") {
+		list.removeAtPos(4);
+		CHECK(list.getElementAtPos(4) == 1);
 	}
 	// Add operator =, iter... for homework...
 	
