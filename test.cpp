@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN // This should come **before** including the 'catch.hpp'.
-#include "LinkedList.h"
-#include "catch.h"
+#include "LinkedList.hpp"
+#include "catch.hpp"
 using namespace std;
 
 TEST_CASE("LinkedList adding elements") {
