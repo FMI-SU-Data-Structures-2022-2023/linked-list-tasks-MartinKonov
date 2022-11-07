@@ -35,14 +35,14 @@ public:
     };
     
     LinkedList(const LinkedList<T>& other) {
-
+    
         Node<T>* traverseOther = other.front;
-        int i = 0;
-        while (i < other.size) {
-            insertAtPos(traverseOther->key, i);
-            i++;
+        while (traverseOther) {
+            insertAtPos(traverseOther->key);
             traverseOther = traverseOther->next;
         }
+
+        this->reverse();
 
     };
     
@@ -74,18 +74,38 @@ public:
     }
     
     LinkedList<T>& operator=(const LinkedList<T>& other) {
+    
+        if (*this == other) {
+            return *this;
+        }
 
         this->~LinkedList();
 
         Node<T>* traverseOther = other.front;
-        int i = 0;
-        while (i < other.size) {
-            insertAtPos(traverseOther->key, i);
-            i++;
+        while (traverseOther) {
+            insertAtPos(traverseOther->key);
             traverseOther = traverseOther->next;
         }
 
+        this->reverse();
         return *this;
+    }
+    
+    void reverse() {
+
+        Node<T>* frnt = this->front;
+        Node<T>* nxt = nullptr;
+        Node<T>* prev = nullptr;
+
+        while (frnt) {
+
+            nxt = frnt->next;
+            frnt->next = prev;
+            prev = frnt;
+            frnt = nxt;
+
+        }
+        this->front = prev;
     }
 
     void insertAtPos(T a, std::size_t pos = 0) {
@@ -192,6 +212,9 @@ public:
     
     T& top() const {
 
+        if (this->size == 0) {
+            throw std::out_of_range("The Linked list is empty.");
+        }
         return this->front->key;
 
     }
@@ -296,10 +319,12 @@ public:
         while (curListFront)
         {
 
-            ListToReturn.push_back(m(curListFront->key));
+            ListToReturn.insertAtPos(m(curListFront->key));
             curListFront = curListFront->next;
 
         }
+
+        ListToReturn.reverse();
 
         return ListToReturn;
 
